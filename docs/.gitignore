@@ -1,0 +1,23 @@
+## Simulation outputs
+sim/waves/
+*.vcd
+*.fst
+
+# Verilator build
+obj_dir/
+
+# Editor
+*.swp
+*~
+.nvim/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log Simulation outputs
+sim/waves/
+*.vcd
+*.fst
+
