@@ -40,7 +40,7 @@ module skid_buffer #(
         skid_reg <= '0;
         end
 
-      if (current_state == EMPTY && (in_valid)) 
+      else if (current_state == EMPTY && (in_valid)) 
           main_reg <= in_data;
 
       else if (current_state == BUSY && (in_valid && out_ready)) 
