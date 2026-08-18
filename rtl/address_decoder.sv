@@ -18,4 +18,5 @@ module address_decoder #(
 // represent the count up to NUM_SLAVES and whatever address starts with that
 // will be assigned to that particular slave. Co-incidentally this creates an
 // equal division between the total amount of space (4GB) in memory that we
-// can address between all the slaves. 
+// can address between all the $clog2(NUM_SLAVES) number of bits needed to
+// represent the slaves. 

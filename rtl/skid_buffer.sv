@@ -8,7 +8,7 @@ module skid_buffer #(
   input logic out_ready,
   output logic in_ready,
   output logic out_valid, 
-  output logic [DATA_WIDTH-1:0]out_data
+  output logic [DATA_WIDTH-1:0] out_data
   );
 
   typedef enum logic [1:0] {
@@ -49,7 +49,7 @@ module skid_buffer #(
       else if (current_state == BUSY && (in_valid && !out_ready))
           skid_reg <= in_data;
 
-      else if (current_state == FULL &&(out_ready))
+      else if (current_state == FULL && (out_ready))
           main_reg <= skid_reg;
 
   end
