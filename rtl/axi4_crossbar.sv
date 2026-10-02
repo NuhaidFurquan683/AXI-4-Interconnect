@@ -26,6 +26,66 @@ module axi4_crossbar #(
                   .addr(master_ports[i].awaddr)
                  );
         end
+        endgenerate
+
+    logic [NUM_MASTERS-1:0] aw_req [NUM_SLAVES];
+        
+    always_comb begin
+        for (int j = 0; j < NUM_SLAVES; j++) begin 
+            aw_req[j] = '0; 
+            for (int k = 0; k < NUM_MASTERS; k++) begin
+                if (aw_slave_select[k] == j && master_ports[k].awvalid)
+                    aw_req[j][k] = 1;
+            end           
+        end
+    end 
+
+    logic [NUM_MASTERS-1 : 0] aw_grant [NUM_SLAVES];
+    logic aw_done [NUM_SLAVES];
+    logic [$clog2(NUM_MASTERS)-1 : 0] aw_winner [NUM_SLAVES];
+
+    generate
+        for (i = 0; i < NUM_SLAVES; i++) begin : gen_arbiters
+            round_robin_arbiter #(
+                .NUM_REQ(NUM_MASTERS)
+                ) u_arbiter (
+                .clk(clk), 
+                .rst_n(rst_n),
+                .req(aw_req[i]),
+                .grant(aw_grant[i]),
+                .done(aw_done[i])
+                    );
+        end 
     endgenerate
-endmodule
+
+    always_comb begin
+        for (int j = 0; j < NUM_SLAVES; j++) begin 
+            aw_winner[j] = '0;
+            for (int k = 0; k < NUM_MASTERS; k++) begin 
+                if (aw_grant[j][k] == 1) 
+                    aw_winner[j] = k[$clog2(NUM_MASTERS)-1:0];
+            end 
+        end 
+    end
+    
+    generate 
+        for (i = 0; i < NUM_SLAVES; i++) begin : gen_ids
+            assign slave_ports[i].awaddr = master_ports[aw_winner[i]].awaddr;
+            assign slave_ports[i].awlen = master_ports[aw_winner[i]].awlen;
+            assign slave_ports[i].awsize = master_ports[aw_winner[i]].awsize;
+            assign slave_ports[i].awburst = master_ports[aw_winner[i]].awburst;
+            assign slave_ports[i].awvalid = master_ports[aw_winner[i]].awvalid; 
+            assign slave_ports[i].awid = {aw_winner[i], master_ports[aw_winner[i]].awid};
+        end
+    endgenerate
+
+    always_comb begin 
+        for (int i = 0; i < NUM_MASTERS; i++) begin 
+            master_ports[i].awready = 0; 
+            if (!aw_decode_error[i] && aw_grant[aw_slave_select[i]][i] && slave_ports[aw_slave_select[i]].awready) 
+                master_ports[i].awready = 1;
+        end 
+    end 
+
+endmodule 
 
