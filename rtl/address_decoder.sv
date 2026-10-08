@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module address_decoder #(
     parameter ADDR_WIDTH = 32,
     parameter NUM_SLAVES = 4
@@ -11,7 +13,7 @@ module address_decoder #(
 
   assign slave_select = addr[ADDR_WIDTH -1 : (ADDR_WIDTH - $clog2(NUM_SLAVES))]; //Just taking the top bits of the address to assign a slave
   /* verilator lint_off UNSIGNED */
-  assign error = (slave_select >= ($clog2(NUM_SLAVES))'(NUM_SLAVES));  //Error assertion, when data address goes out of range
+  assign error = (32'(slave_select) >= NUM_SLAVES);  //Error assertion, when data address goes out of range
   /* verilator lint_on UNSIGNED */
   endmodule 
 // The slave_select logic is simple, just check the top bits needed to

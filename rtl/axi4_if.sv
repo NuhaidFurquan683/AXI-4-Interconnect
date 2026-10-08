@@ -5,9 +5,12 @@ interface axi4_if #(
   );
     
     localparam int STRB_WIDTH = DATA_WIDTH/8; //Strobe width derived form a 32-bit data width allowing for 4 distinct byte channels
-    
+   
+
+    /* verilator lint_off UNUSEDSIGNAL */
     logic aresetn;
     logic aclk;
+    /* verilator lint_on UNUSEDSIGNAL */
     
     // Write address channel 
     logic [ID_WIDTH - 1 : 0] awid;

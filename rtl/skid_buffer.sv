@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module skid_buffer #(
   parameter int DATA_WIDTH = 32
 )(

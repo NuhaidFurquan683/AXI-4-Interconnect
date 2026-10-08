@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module round_robin_arbiter #(
     parameter int NUM_REQ = 4
 )(
