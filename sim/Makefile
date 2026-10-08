@@ -4,6 +4,7 @@
 #   make xbar1      -> crossbar system test with register slices
 #   make xbar0      -> crossbar system test without register slices
 #   make unit       -> skid_buffer, round_robin_arbiter, address_decoder
+#   make hwsim      -> simulate the Blackboard hardware test (hw/)
 #   make lint       -> verilator -Wall lint of the RTL
 #   make clean
 # Build directories live outside the repo (default ~/.cache/axi4_sim) because
@@ -28,9 +29,9 @@ TB  = $(TB_DIR)/axi_tb_pkg.sv $(TB_DIR)/axi_master_bfm.sv $(TB_DIR)/axi_slave_me
       $(TB_DIR)/axi_protocol_checker.sv $(TB_DIR)/axil_master_bfm.sv \
       $(TB_DIR)/tb_axi4_crossbar.sv
 
-.PHONY: all unit xbar0 xbar1 lint clean
+.PHONY: all unit xbar0 xbar1 hwsim lint clean
 
-all: unit xbar1 xbar0
+all: unit xbar1 xbar0 hwsim
 
 xbar1:
 	mkdir -p $(OBJ)
@@ -50,6 +51,14 @@ unit:
 	$(OBJ)/arb/sim | grep -E "ERROR|\*\*\*"
 	$(VERILATOR) $(VFLAGS) --top-module tb_address_decoder -Mdir $(OBJ)/dec -o sim $(RTL_DIR)/address_decoder.sv $(TB_DIR)/tb_address_decoder.sv
 	$(OBJ)/dec/sim | grep -E "ERROR|\*\*\*"
+
+HW_DIR = ../hw
+hwsim:
+	mkdir -p $(OBJ)
+	$(VERILATOR) $(VFLAGS) +define+AXI_HW_SIM --top-module tb_hw_top -Mdir $(OBJ)/hw -o sim $(RTL) \
+	    $(HW_DIR)/axi_traffic_gen.sv $(HW_DIR)/axi_bram_slave.sv $(TB_DIR)/axi_tb_pkg.sv \
+	    $(TB_DIR)/axi_protocol_checker.sv $(HW_DIR)/axi4_xbar_hw_top.sv $(TB_DIR)/tb_hw_top.sv
+	$(OBJ)/hw/sim | grep -E "throughput|txns|ERROR|\*\*\*"
 
 lint:
 	$(VERILATOR) --lint-only -Wall -Wno-UNUSEDSIGNAL --top-module axi4_crossbar \

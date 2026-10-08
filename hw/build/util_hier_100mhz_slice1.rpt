@@ -1,0 +1,44 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Thu Oct  8 20:21:12 2026
+| Host         : DESKTOP-1HJ7IPN running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file build/util_hier_100mhz_slice1.rpt
+| Design       : axi4_xbar_hw_top
+| Device       : xc7z007sclg400-1
+| Speed File   : -1
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|             Instance             |              Module             | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++----------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| axi4_xbar_hw_top                 |                           (top) |       2295 |       2287 |       0 |    8 | 2149 |      3 |      0 |          0 |
+|   (axi4_xbar_hw_top)             |                           (top) |         26 |         26 |       0 |    0 |  187 |      0 |      0 |          0 |
+|   u_ctrl                         |               axi4_lite_control |        328 |        328 |       0 |    0 |  232 |      0 |      0 |          0 |
+|   u_gen0                         |                 axi_traffic_gen |        707 |        707 |       0 |    0 |  332 |      0 |      0 |          0 |
+|   u_gen1                         | axi_traffic_gen__parameterized0 |        374 |        374 |       0 |    0 |  333 |      0 |      0 |          0 |
+|   u_ram0                         |                  axi_bram_slave |         60 |         58 |       0 |    2 |   85 |      1 |      0 |          0 |
+|   u_ram1                         |  axi_bram_slave__parameterized0 |         60 |         58 |       0 |    2 |   79 |      1 |      0 |          0 |
+|   u_ram2                         |  axi_bram_slave__parameterized1 |         62 |         58 |       0 |    4 |   78 |      1 |      0 |          0 |
+|   u_xbar                         |                   axi4_crossbar |        691 |        691 |       0 |    0 |  823 |      0 |      0 |          0 |
+|     (u_xbar)                     |                   axi4_crossbar |         14 |         14 |       0 |    0 |   85 |      0 |      0 |          0 |
+|     g_sport[0].g_slice.u_r_slice |     skid_buffer__parameterized2 |         81 |         81 |       0 |    0 |   76 |      0 |      0 |          0 |
+|     g_sport[0].g_slice.u_w_slice |     skid_buffer__parameterized0 |         37 |         37 |       0 |    0 |   66 |      0 |      0 |          0 |
+|     g_sport[1].g_slice.u_r_slice |   skid_buffer__parameterized2_9 |         66 |         66 |       0 |    0 |   76 |      0 |      0 |          0 |
+|     g_sport[1].g_slice.u_w_slice |  skid_buffer__parameterized0_10 |         93 |         93 |       0 |    0 |   66 |      0 |      0 |          0 |
+|     g_sport[2].g_slice.u_r_slice |  skid_buffer__parameterized2_14 |        113 |        113 |       0 |    0 |   76 |      0 |      0 |          0 |
+|     g_sport[2].g_slice.u_w_slice |  skid_buffer__parameterized0_15 |         37 |         37 |       0 |    0 |   66 |      0 |      0 |          0 |
++----------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
