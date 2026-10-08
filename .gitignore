@@ -1,0 +1,4 @@
+sim/*.log
+syn/.Xil/
+syn/*.jou
+syn/*.log
