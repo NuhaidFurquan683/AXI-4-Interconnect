@@ -2,4 +2,9 @@ sim/*.log
 syn/.Xil/
 syn/*.jou
 syn/*.log
-hw/.Xil/
+hw/*
+hw/build/axi4_xbar_hw_100mhz_slice1.bit
+hw/build/timing_100mhz_slice1.rpt
+hw/build/util_100mhz_slice1.rpt
+hw/build/util_hier_100mhz_slice1.rpt
+hw/clockInfo.txt

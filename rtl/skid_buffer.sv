@@ -89,7 +89,8 @@ module skid_buffer #(
       endcase
   end
 
-  assign in_ready = (current_state != FULL);
+  assign in_ready = (current_state != FULL); //THIS LINE IS WHAT MAKES THIS A FULLY REGISTERED DATA PATH,
+  //BECAUSE IN_READY DOES NOT COMBINATIONALLY DEPEND ON OUT_READY SO THERE'S NO WAY DIRECT UPSTREAM OR DOWNSTREAM
   assign out_valid = (current_state != EMPTY);
 
 endmodule

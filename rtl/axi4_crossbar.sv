@@ -612,7 +612,7 @@ module axi4_crossbar #(
         end
     end
  
-    //  Ready/!Ready outputs
+    //  Ready/!Ready outputs (Idk why they're named this way but I digress)
     always_comb begin
         for (int m = 0; m < NUM_MASTERS; m++) begin
             stat_aw_handshake[m] = m_awvalid[m] && m_awready[m];
